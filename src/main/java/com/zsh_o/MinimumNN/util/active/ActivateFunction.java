@@ -1,4 +1,4 @@
-package com.zsh_o.MinimumNN.util;
+package com.zsh_o.MinimumNN.util.active;
 
 import org.jblas.DoubleMatrix;
 

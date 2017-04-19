@@ -2,6 +2,7 @@ package com.zsh_o.MinimumNN.node;
 
 import com.zsh_o.MinimumNN.optimizator.Optimizator;
 import com.zsh_o.MinimumNN.util.MatrixIniter;
+import com.zsh_o.MinimumNN.util.RandomFactory;
 import org.jblas.DoubleMatrix;
 
 import java.util.ArrayList;
@@ -12,24 +13,31 @@ import java.util.Map;
  * Created by zsh_o on 2017/4/19.
  */
 public abstract class Node implements INode {
-    Map<String,DoubleMatrix> StatesRecord;
-    Map<String,DoubleMatrix> ParametersRecord;
+    protected Map<String,DoubleMatrix> StatesRecord;
+    protected Map<String,DoubleMatrix> ParametersRecord;
 
-    ArrayList<String> ParametersTrainable;
+    protected ArrayList<String> ParametersTrainable;
 
-    Optimizator optimizator;
+    protected Optimizator optimizator;
 
-    MatrixIniter matrixIniter;
+    protected MatrixIniter matrixIniter;
 
 
-    int inSize,outSize;
+    protected int inSize,outSize;
 
-    Node inNode,outNode;
+    protected Node inNode,outNode;
+
+    protected double droupRate=0;
+
+    public int CurrentTime;
+
+    protected RuningState runingState;
+
 
     /**
      * 迭代次数
      * */
-    int iterNum;
+    protected int iterNum;
 
     public abstract void updateParameters();
 
@@ -42,6 +50,18 @@ public abstract class Node implements INode {
         ParametersTrainable=new ArrayList<String>();
         ParametersRecord=new HashMap<String, DoubleMatrix>();
     }
+
+    public DoubleMatrix DroupOut(DoubleMatrix X){
+        DoubleMatrix tX=new DoubleMatrix(X.rows,X.columns);
+        tX.copy(X);
+        for(int i=0;i<inSize;i++){
+            if(RandomFactory.get().nextDouble()<droupRate){
+                tX.mulColumn(i,0);
+            }
+        }
+        return tX;
+    }
+
 
     public Map<String, DoubleMatrix> getStatesRecord() {
         return StatesRecord;

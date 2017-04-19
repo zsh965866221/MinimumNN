@@ -1,4 +1,4 @@
-package com.zsh_o.MinimumNN.util;
+package com.zsh_o.MinimumNN.util.active;
 
 import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
@@ -6,20 +6,21 @@ import org.jblas.MatrixFunctions;
 /**
  * Created by zsh_o on 2017/4/19.
  */
-public class Logistic implements ActivateFunction {
+public class Tanh implements ActivateFunction {
     public double activate(double x) {
-        return 1/(1+Math.exp(-x));
+        double e = Math.exp(2 * x);
+        return (e - 1) / (e + 1);
     }
 
     public double dActivate(double dy) {
-        return dy*(1-dy);
+        return 1-Math.pow(dy,2);
     }
 
     public DoubleMatrix activate(DoubleMatrix x) {
-        return MatrixFunctions.pow(MatrixFunctions.exp(x.mul(-1)).add(1),-1);
+        return MatrixFunctions.tanh(x);
     }
 
     public DoubleMatrix dActivate(DoubleMatrix dy) {
-        return dy.mul(DoubleMatrix.ones(1,dy.length).sub(dy));
+        return DoubleMatrix.ones(1,dy.length).sub(MatrixFunctions.pow(dy,2));
     }
 }
