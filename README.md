@@ -10,6 +10,6 @@
    - CNN
    - BayesNN
  - Droupout
- -优化
+ - 优化
    - 冲量
    - boosting
