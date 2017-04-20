@@ -1,6 +1,6 @@
 package com.zsh_o.MinimumNN.node;
 
-import com.zsh_o.MinimumNN.optimizator.Optimizator;
+import com.zsh_o.MinimumNN.optimizator.Optimizer;
 import com.zsh_o.MinimumNN.util.MatrixIniter;
 import com.zsh_o.MinimumNN.util.RandomFactory;
 import org.jblas.DoubleMatrix;
@@ -18,7 +18,7 @@ public abstract class Node implements INode {
 
     protected ArrayList<String> ParametersTrainable;
 
-    protected Optimizator optimizator;
+    protected Optimizer optimizer;
 
     protected MatrixIniter matrixIniter;
 
@@ -41,8 +41,9 @@ public abstract class Node implements INode {
 
     public abstract void updateParameters();
 
-    public Node(int inSize,int outSize,Optimizator optimizator,MatrixIniter matrixIniter) {
-        this.optimizator = optimizator;
+    public Node(int inSize, int outSize, Optimizer optimizer, MatrixIniter matrixIniter) {
+        this.optimizer = optimizer;
+        optimizer.setNode(this);
         this.matrixIniter=matrixIniter;
         this.inSize=inSize;
         this.outSize=outSize;
@@ -75,8 +76,8 @@ public abstract class Node implements INode {
         return ParametersTrainable;
     }
 
-    public Optimizator getOptimizator() {
-        return optimizator;
+    public Optimizer getOptimizer() {
+        return optimizer;
     }
 
     public int getIterNum() {

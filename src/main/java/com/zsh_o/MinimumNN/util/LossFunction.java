@@ -4,8 +4,9 @@ import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
 
 /**
- * get some codes from JRNN
  * Created by zsh_o on 2017/4/19.
+ *
+ * get some codes from JRNN
  */
 public class LossFunction {
     public static double crossEntropy(DoubleMatrix p, DoubleMatrix q) {

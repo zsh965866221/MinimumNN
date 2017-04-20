@@ -8,10 +8,14 @@ import java.util.Map;
 /**
  * Created by zsh_o on 2017/4/19.
  */
-public abstract class Optimizator implements IOptimize {
+public abstract class Optimizer implements IOptimize {
     Node node;
 
-    public Optimizator(Node node) {
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
         this.node = node;
     }
 }
