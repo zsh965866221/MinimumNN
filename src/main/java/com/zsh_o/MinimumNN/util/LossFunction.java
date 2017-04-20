@@ -9,7 +9,53 @@ import org.jblas.MatrixFunctions;
  * get some codes from JRNN
  */
 public class LossFunction {
-    public static double crossEntropy(DoubleMatrix p, DoubleMatrix q) {
+    public interface ILoss {
+        double calculate(DoubleMatrix P, DoubleMatrix Q);
+    }
+    public class CrossEntropy implements ILoss {
+        @Override
+        public double calculate(DoubleMatrix P, DoubleMatrix Q) {
+            return crossEntropy(P,Q);
+        }
+    }
+    public class MeanBinaryCrossEntropy implements ILoss{
+
+        @Override
+        public double calculate(DoubleMatrix P, DoubleMatrix Q) {
+            return getMeanBinaryCrossEntropy(P,Q);
+        }
+    }
+    public class CategoricalCrossEntropy implements ILoss{
+
+        @Override
+        public double calculate(DoubleMatrix P, DoubleMatrix Q) {
+            return getCategoricalCrossEntropy(P,Q);
+        }
+    }
+    public class MeanCategoricalCrossEntropy implements ILoss{
+
+        @Override
+        public double calculate(DoubleMatrix P, DoubleMatrix Q) {
+            return getMeanCategoricalCrossEntropy(P,Q);
+        }
+    }
+    public class MSE implements ILoss{
+
+        @Override
+        public double calculate(DoubleMatrix P, DoubleMatrix Q) {
+            return getMSE(P,Q);
+        }
+    }
+    public class MSERecSys implements ILoss{
+
+        @Override
+        public double calculate(DoubleMatrix P, DoubleMatrix Q) {
+            return getMSERecSys(P,Q);
+        }
+    }
+
+
+    static double crossEntropy(DoubleMatrix p, DoubleMatrix q) {
         for (int i = 0; i < p.length; i++) {
             if (p.get(i) == 0) {
                 p.put(i, 1e-10);
@@ -21,7 +67,7 @@ public class LossFunction {
                 + (q.add(-1).mul(MatrixFunctions.log(p.mul(-1).add(1)))).sum();
     }
 
-    public static double getMeanBinaryCrossEntropy(DoubleMatrix P, DoubleMatrix Q) {
+    static double getMeanBinaryCrossEntropy(DoubleMatrix P, DoubleMatrix Q) {
         double e = 0;
         if (P.rows == Q.rows) {
             for (int i = 0; i < P.rows; i++) {
@@ -43,7 +89,7 @@ public class LossFunction {
         return -p.mul(MatrixFunctions.log(q)).sum();
     }
 
-    public static double getMeanCategoricalCrossEntropy(DoubleMatrix P, DoubleMatrix Q) {
+    static double getMeanCategoricalCrossEntropy(DoubleMatrix P, DoubleMatrix Q) {
         double e = 0;
         if (P.rows == Q.rows) {
             for (int i = 0; i < P.rows; i++) {
@@ -56,7 +102,7 @@ public class LossFunction {
         return e;
     }
 
-    public static double getMSE(DoubleMatrix P, DoubleMatrix Q) {
+    static double getMSE(DoubleMatrix P, DoubleMatrix Q) {
         double e = 0;
         if (P.rows == Q.rows) {
             for (int i = 0; i < P.rows; i++) {
