@@ -15,13 +15,14 @@ import org.jblas.DoubleMatrix;
 public class Main {
     public static void main(String[] args){
         TestModel model=new TestModel(new LossFunction.MSE());
-        model.addLayer(new DenseLayer(3,4,new DefaultOptimizer(0.9),new MatrixIniter(MatrixIniter.Type.Gaussian,0,0,1),new Tanh(),0));
-        model.addLayer(new DenseLayer(4,2,new DefaultOptimizer(0.9),new MatrixIniter(MatrixIniter.Type.Gaussian,0,0,1),new Tanh(),0));
+        model.addLayer(new DenseLayer(3,4,new DefaultOptimizer(0.2),new MatrixIniter(MatrixIniter.Type.Gaussian,0,0,1),new Tanh(),0));
+        model.addLayer(new DenseLayer(4,2,new DefaultOptimizer(0.2),new MatrixIniter(MatrixIniter.Type.Gaussian,0,0,1),new Tanh(),0));
 
         DoubleMatrix X=DoubleMatrix.randn(30,3);
         DoubleMatrix Y=DoubleMatrix.randn(30,2);
-        for(int i=0;i<100;i++){
-            System.out.println(model.fit(X,Y));
+        for(int i=0;i<500;i++){
+            double loss=model.fit(X,Y);
+            System.out.println(loss);
         }
 //        System.out.println(model.predict(X));
     }

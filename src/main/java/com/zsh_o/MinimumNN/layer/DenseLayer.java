@@ -48,11 +48,9 @@ public class DenseLayer extends Node {
     public void train() {
         for(int t=CurrentTime-1;t>-1;t--){
             DoubleMatrix dy=StatesRecord.get("dy"+t);
+            DoubleMatrix y=StatesRecord.get("y"+t);
 
-            updateParameters();
-
-
-            DoubleMatrix dx=activateFunction.dActivate(dy).mmul(W.transpose());
+            DoubleMatrix dx=activateFunction.dActivate(y).mmul(W.transpose());
             StatesRecord.put("dx"+t,dx);
 
             if(inNode!=null){
@@ -60,7 +58,7 @@ public class DenseLayer extends Node {
             }
         }
 
-//        updateParameters();
+        updateParameters();
     }
 
     public void updateParameters() {
@@ -71,24 +69,17 @@ public class DenseLayer extends Node {
         for(int t=0;t<CurrentTime;t++){
             DoubleMatrix dy=StatesRecord.get("dy"+t);
             DoubleMatrix x=StatesRecord.get("x"+t).transpose();
-            DoubleMatrix dfy=activateFunction.dActivate(dy);
+            DoubleMatrix y=StatesRecord.get("y"+t);
+            DoubleMatrix dO=activateFunction.dActivate(y);
 
-
-            gW=x.mmul(dfy);
-            gb=dfy;
-            ParametersRecord.put("dW",gW);
-            ParametersRecord.put("db",gb);
-
-            optimizer.update();
-
-//            gW= gW.add(x.mmul(dfy));
-//            gb=gb.add(dfy);
+            gW= gW.add(x.mmul(dO.mul(dy)));
+            gb=gb.add(dO.mul(dy));
         }
-//        gW=gW.div(CurrentTime);
-//        gb=gb.div(CurrentTime);
-//        ParametersRecord.put("dW",gW);
-//        ParametersRecord.put("db",gb);
+        gW=gW.div(CurrentTime);
+        gb=gb.div(CurrentTime);
+        ParametersRecord.put("dW",gW);
+        ParametersRecord.put("db",gb);
 
-//        optimizer.update();
+        optimizer.update();
     }
 }
