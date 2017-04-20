@@ -24,8 +24,8 @@ public class LSTMLayer extends Node {
     DoubleMatrix Wxo,Who,Wco,bo;
 
 
-    public LSTMLayer(int inSize, int outSize, Optimizer optimizer, MatrixIniter matrixIniter) {
-        super(inSize, outSize, optimizer, matrixIniter);
+    public LSTMLayer(int inSize, int outSize, Optimizer optimizer, MatrixIniter matrixIniter,double droupRate) {
+        super(inSize, outSize, optimizer, matrixIniter,droupRate);
         this.Wxi=matrixIniter.generate(inSize,outSize);
         this.Whi=matrixIniter.generate(outSize,outSize);
         this.Wci=matrixIniter.generate(outSize,outSize);

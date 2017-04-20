@@ -13,11 +13,9 @@ import java.util.ArrayList;
 public abstract class Model {
     ArrayList<Node> NNStructure;
     LossFunction.ILoss lossFunction;
-    DataScale dataScale;
 
-    public Model(LossFunction.ILoss lossFunction, DataScale dataScale) {
+    public Model(LossFunction.ILoss lossFunction) {
         this.lossFunction = lossFunction;
-        this.dataScale = dataScale;
         NNStructure=new ArrayList<>();
     }
 
@@ -30,7 +28,12 @@ public abstract class Model {
         NNStructure.add(node);
     }
 
-    abstract double fit(DoubleMatrix X, DoubleMatrix Y);
-    abstract DoubleMatrix predict(DoubleMatrix X);
-    abstract void train();
+    public abstract double fit(DoubleMatrix X, DoubleMatrix Y);
+    public abstract DoubleMatrix predict(DoubleMatrix X);
+
+    public void clearTime(){
+        for(Node node:NNStructure){
+            node.CurrentTime=0;
+        }
+    }
 }

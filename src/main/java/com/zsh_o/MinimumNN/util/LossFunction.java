@@ -12,42 +12,37 @@ public class LossFunction {
     public interface ILoss {
         double calculate(DoubleMatrix P, DoubleMatrix Q);
     }
-    public class CrossEntropy implements ILoss {
+    public static class CrossEntropy implements ILoss {
         @Override
         public double calculate(DoubleMatrix P, DoubleMatrix Q) {
             return crossEntropy(P,Q);
         }
     }
-    public class MeanBinaryCrossEntropy implements ILoss{
-
+    public static class MeanBinaryCrossEntropy implements ILoss{
         @Override
         public double calculate(DoubleMatrix P, DoubleMatrix Q) {
             return getMeanBinaryCrossEntropy(P,Q);
         }
     }
-    public class CategoricalCrossEntropy implements ILoss{
-
+    public static class CategoricalCrossEntropy implements ILoss{
         @Override
         public double calculate(DoubleMatrix P, DoubleMatrix Q) {
             return getCategoricalCrossEntropy(P,Q);
         }
     }
-    public class MeanCategoricalCrossEntropy implements ILoss{
-
+    public static class MeanCategoricalCrossEntropy implements ILoss{
         @Override
         public double calculate(DoubleMatrix P, DoubleMatrix Q) {
             return getMeanCategoricalCrossEntropy(P,Q);
         }
     }
-    public class MSE implements ILoss{
-
+    public static class MSE implements ILoss{
         @Override
         public double calculate(DoubleMatrix P, DoubleMatrix Q) {
             return getMSE(P,Q);
         }
     }
-    public class MSERecSys implements ILoss{
-
+    public static class MSERecSys implements ILoss{
         @Override
         public double calculate(DoubleMatrix P, DoubleMatrix Q) {
             return getMSERecSys(P,Q);

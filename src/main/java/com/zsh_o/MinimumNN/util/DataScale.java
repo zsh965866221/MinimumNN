@@ -8,7 +8,7 @@ import org.jblas.DoubleMatrix;
 public class DataScale implements Iscale {
     double up,down;
 
-    public DataScale(double up, double down) {
+    public DataScale(double down,double up) {
         this.up = up;
         this.down = down;
     }

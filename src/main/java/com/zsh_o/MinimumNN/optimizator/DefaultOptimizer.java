@@ -8,14 +8,14 @@ import org.jblas.DoubleMatrix;
 public class DefaultOptimizer extends Optimizer {
     double learningRate;
 
-    public DefaultOptimizer(int learningRate) {
+    public DefaultOptimizer(double learningRate) {
         this.learningRate=learningRate;
     }
 
     public void update() {
         for(String p : node.getParametersTrainable()){
             DoubleMatrix mp=node.getParametersRecord().get(p);
-            node.getParametersRecord().put(p,mp.sub(node.getParametersRecord().get("d"+p).mul(learningRate)));
+            mp.subi(node.getParametersRecord().get("d"+p).mul(learningRate));
         }
     }
 }

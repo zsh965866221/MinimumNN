@@ -51,6 +51,17 @@ public abstract class Node implements INode {
         ParametersTrainable=new ArrayList<String>();
         ParametersRecord=new HashMap<String, DoubleMatrix>();
     }
+    public Node(int inSize, int outSize, Optimizer optimizer, MatrixIniter matrixIniter,double droupRate) {
+        this.optimizer = optimizer;
+        optimizer.setNode(this);
+        this.matrixIniter=matrixIniter;
+        this.inSize=inSize;
+        this.outSize=outSize;
+        StatesRecord=new HashMap<String, DoubleMatrix>();
+        ParametersTrainable=new ArrayList<String>();
+        ParametersRecord=new HashMap<String, DoubleMatrix>();
+        this.droupRate=droupRate;
+    }
 
     public DoubleMatrix DroupOut(DoubleMatrix X){
         DoubleMatrix tX=new DoubleMatrix(X.rows,X.columns);
@@ -61,6 +72,13 @@ public abstract class Node implements INode {
             }
         }
         return tX;
+    }
+
+    public void setX(DoubleMatrix X,int t){
+        StatesRecord.put("x"+t,X);
+    }
+    public void setDy(DoubleMatrix dy,int t){
+        StatesRecord.put("dy"+t,dy);
     }
 
 
@@ -102,5 +120,17 @@ public abstract class Node implements INode {
 
     public void clearStates(){
         StatesRecord.clear();
+    }
+
+    public RuningState getRuningState() {
+        return runingState;
+    }
+
+    public void setRuningState(RuningState runingState) {
+        this.runingState = runingState;
+    }
+
+    public DoubleMatrix getY(int t){
+        return StatesRecord.get("y"+t);
     }
 }
