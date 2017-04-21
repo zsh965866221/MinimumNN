@@ -5,11 +5,8 @@
 
 特性:
  - 神经网络结构
-   - DenseLayer
+   - DenseLayer
    - LSTM
-   - CNN
-   - BayesNN
  - Droupout
  - 优化
    - 冲量
-   - boosting
