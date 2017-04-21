@@ -27,10 +27,8 @@ public class TestModel extends Model {
             while(currentNode!=null){
                 currentNode.setRuningState(RuningState.Training);
                 currentNode.activate();
-
                 currentNode=currentNode.getOutNode();
             }
-
             lastNode.setDy(lastNode.getY(i).sub(Y.getRow(i)),i);
         }
         DoubleMatrix pY=lastNode.getY(0);
@@ -41,6 +39,7 @@ public class TestModel extends Model {
         currentNode=lastNode;
         while(currentNode!=null){
             currentNode.train();
+            currentNode.clearStates();
             currentNode=currentNode.getInNode();
         }
         clearTime();
@@ -72,5 +71,7 @@ public class TestModel extends Model {
         }
         return pY;
     }
+
+
 
 }

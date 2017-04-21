@@ -75,8 +75,8 @@ public class DenseLayer extends Node {
             gW= gW.add(x.mmul(dO.mul(dy)));
             gb=gb.add(dO.mul(dy));
         }
-        gW=gW.div(CurrentTime);
-        gb=gb.div(CurrentTime);
+//        gW=gW.div(CurrentTime);
+//        gb=gb.div(CurrentTime);
         ParametersRecord.put("dW",gW);
         ParametersRecord.put("db",gb);
 
