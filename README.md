@@ -5,7 +5,7 @@
 
 特性:
  - 神经网络结构
-   - DenseLayer
+   - DenseLayer [x]
    - LSTM
    - CNN
    - BayesNN
