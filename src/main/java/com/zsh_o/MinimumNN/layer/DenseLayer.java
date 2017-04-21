@@ -50,7 +50,7 @@ public class DenseLayer extends Node {
             DoubleMatrix dy=StatesRecord.get("dy"+t);
             DoubleMatrix y=StatesRecord.get("y"+t);
 
-            DoubleMatrix dx=activateFunction.dActivate(y).mmul(W.transpose());
+            DoubleMatrix dx=dy.mul(activateFunction.dActivate(y)).mmul(W.transpose());
             StatesRecord.put("dx"+t,dx);
 
             if(inNode!=null){

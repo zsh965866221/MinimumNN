@@ -39,7 +39,6 @@ public class TestModel extends Model {
         currentNode=lastNode;
         while(currentNode!=null){
             currentNode.train();
-            currentNode.clearStates();
             currentNode=currentNode.getInNode();
         }
         clearTime();
@@ -60,18 +59,18 @@ public class TestModel extends Model {
         for(int i=0;i<X.rows;i++){
             firstNode.setX(X.getRow(i),i);
             currentNode=firstNode;
-            while(currentNode.getOutNode()!=null){
-                currentNode.setRuningState(state);
+            while(currentNode!=null){
+                currentNode.setRuningState(RuningState.Predicting);
                 currentNode.activate();
+                currentNode=currentNode.getOutNode();
             }
         }
         DoubleMatrix pY=lastNode.getY(0);
         for(int i=1;i<X.rows;i++){
+            DoubleMatrix ly=lastNode.getY(i);
             pY=DoubleMatrix.concatVertically(pY,lastNode.getY(i));
         }
         return pY;
     }
-
-
 
 }
